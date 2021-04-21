@@ -142,12 +142,9 @@ class UploadResultSubscriber(BaseResultSubscriber):
 
     def _get_src_dest(self, future):
         call_args = future.meta.call_args
-        src = self._get_src(call_args.fileobj)
+        src = call_args.fileobj
         dest = 's3://' + call_args.bucket + '/' + call_args.key
         return src, dest
-
-    def _get_src(self, fileobj):
-        return relative_path(fileobj)
 
 
 class UploadStreamResultSubscriber(UploadResultSubscriber):
@@ -161,11 +158,8 @@ class DownloadResultSubscriber(BaseResultSubscriber):
     def _get_src_dest(self, future):
         call_args = future.meta.call_args
         src = 's3://' + call_args.bucket + '/' + call_args.key
-        dest = self._get_dest(call_args.fileobj)
+        dest = call_args.fileobj
         return src, dest
-
-    def _get_dest(self, fileobj):
-        return relative_path(fileobj)
 
 
 class DownloadStreamResultSubscriber(DownloadResultSubscriber):
