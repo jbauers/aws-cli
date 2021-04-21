@@ -63,6 +63,11 @@ DRYRUN = {'name': 'dryrun', 'action': 'store_true',
               "specified command without actually running them.")}
 
 
+ABSOLUTE_PATHS = {'name': 'absolute-paths', 'action': 'store_true',
+                  'help_text': (
+                      "Prints absolute local paths.")}
+
+
 QUIET = {'name': 'quiet', 'action': 'store_true',
          'help_text': (
              "Does not display the operations performed from the specified "
@@ -456,7 +461,7 @@ REQUEST_PAYER = {
     )
 }
 
-TRANSFER_ARGS = [DRYRUN, QUIET, INCLUDE, EXCLUDE, ACL,
+TRANSFER_ARGS = [DRYRUN, ABSOLUTE_PATHS, QUIET, INCLUDE, EXCLUDE, ACL,
                  FOLLOW_SYMLINKS, NO_FOLLOW_SYMLINKS, NO_GUESS_MIME_TYPE,
                  SSE, SSE_C, SSE_C_KEY, SSE_KMS_KEY_ID, SSE_C_COPY_SOURCE,
                  SSE_C_COPY_SOURCE_KEY, STORAGE_CLASS, GRANTS,

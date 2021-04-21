@@ -348,9 +348,9 @@ class BaseTransferRequestSubmitter(object):
         raise NotImplementedError('_format_src_dest')
 
     def _format_local_path(self, path):
-        if path.startswith('/'):
-            return path
-        return relative_path(path)
+        if not self._cli_params.get('absolute_paths'):
+            return relative_path(path)
+        return path
 
     def _format_s3_path(self, path):
         if path.startswith('s3://'):
