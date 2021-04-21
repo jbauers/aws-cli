@@ -393,7 +393,7 @@ class UploadRequestSubmitter(BaseTransferRequestSubmitter):
             self._result_queue.put(warning)
 
     def _format_src_dest(self, fileinfo):
-        src = self._format_local_path(fileinfo.src)
+        src = fileinfo.src
         dest = self._format_s3_path(fileinfo.dest)
         return src, dest
 
@@ -428,7 +428,7 @@ class DownloadRequestSubmitter(BaseTransferRequestSubmitter):
 
     def _format_src_dest(self, fileinfo):
         src = self._format_s3_path(fileinfo.src)
-        dest = self._format_local_path(fileinfo.dest)
+        dest = fileinfo.dest
         return src, dest
 
 
