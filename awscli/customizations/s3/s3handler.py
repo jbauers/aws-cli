@@ -348,6 +348,8 @@ class BaseTransferRequestSubmitter(object):
         raise NotImplementedError('_format_src_dest')
 
     def _format_local_path(self, path):
+        if path.startswith('/'):
+            return path
         return relative_path(path)
 
     def _format_s3_path(self, path):
@@ -393,7 +395,7 @@ class UploadRequestSubmitter(BaseTransferRequestSubmitter):
             self._result_queue.put(warning)
 
     def _format_src_dest(self, fileinfo):
-        src = fileinfo.src
+        src = self._format_local_path(fileinfo.src)
         dest = self._format_s3_path(fileinfo.dest)
         return src, dest
 
@@ -428,7 +430,7 @@ class DownloadRequestSubmitter(BaseTransferRequestSubmitter):
 
     def _format_src_dest(self, fileinfo):
         src = self._format_s3_path(fileinfo.src)
-        dest = fileinfo.dest
+        dest = self._format_local_path(fileinfo.dest)
         return src, dest
 
 
